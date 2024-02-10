@@ -11,7 +11,6 @@ canvasSketch(() => {
 
   return (props) => {
     const { context, width, height, playhead, time, frame } = props
-    // We will add to this over time
     let t = Math.sin(playhead * Math.PI * 2);
     console.log(frame,filterdData[frame])
 
@@ -33,7 +32,7 @@ canvasSketch(() => {
     context.translate(width / 2, height / 2);
     context.beginPath();
     context.bezierCurveTo(x1, y1, x2, y2, x3, y3, x4, y4);
-    context.globalAlpha = 0.1;
+    context.globalAlpha = 0.05;
     context.stroke();
     context.restore();
 

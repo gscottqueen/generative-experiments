@@ -15,7 +15,7 @@ const settings = {
 }
 
 canvasSketch((props) => {
-  const { width, height, units } = props
+  const { context, width, height, units } = props
   // We will add to this over time
   const paths = [];
 
@@ -42,6 +42,8 @@ canvasSketch((props) => {
     const centerWidth = width / 2
     const centerHeight = height / 2
 
+    context.strokeStyle = 'red';
+
     p.bezierCurveTo(
       x1 + centerWidth,
       y1 + centerHeight,
@@ -51,6 +53,7 @@ canvasSketch((props) => {
       y3 + centerHeight,
       x4 + centerWidth,
       y4 + centerHeight);
+
     paths.push(p);
 
     t += 0.002;
@@ -63,7 +66,7 @@ canvasSketch((props) => {
       lineJoin: 'round',
       lineCap: 'round',
       // in working units; you might have a thicker pen
-      lineWidth: 1,
+      lineWidth: .7,
       // Optimize SVG paths for pen plotter use
       optimize: true
     });
