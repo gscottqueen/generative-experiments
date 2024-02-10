@@ -5,6 +5,9 @@
   "main": "index.js",
   "sourceType": "module",
   "scripts": {
+    "start": "canvas-sketch-cli --hot --open",
+    "new": "canvas-sketch-cli --new",
+    "build": "canvas-sketch-cli --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "canvas-sketch": "^0.7.6",
+    "canvas-sketch-cli": "^1.11.21",
     "canvas-sketch-util": "^1.10.0",
     "convex-hull": "^1.0.3",
     "delaunay-triangulate": "^1.1.6",
