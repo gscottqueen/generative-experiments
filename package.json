@@ -6,7 +6,7 @@
   "sourceType": "module",
   "scripts": {
     "start": "canvas-sketch-cli --hot --open",
-    "new": "canvas-sketch-cli --new",
+    "new": "canvas-sketch-cli --new --template=penplot",
     "build": "canvas-sketch-cli --build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
