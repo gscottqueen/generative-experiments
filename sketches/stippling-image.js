@@ -5,7 +5,6 @@ import p5 from "p5";
 new p5();
 
 let img;
-let lines = [];
 
 const settings = {
   // Tell canvas-sketch we're using p5.js
