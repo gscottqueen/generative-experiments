@@ -1,10 +1,16 @@
 import canvasSketch from "canvas-sketch";
+const {
+  renderPaths,
+  createPath,
+  pathsToPolylines,
+} = require("canvas-sketch-util/penplot");
 import p5 from "p5";
 
 // Attach p5.js it to global scope
 new p5();
 
 let img;
+let ellipses = [];
 
 const settings = {
   // Tell canvas-sketch we're using p5.js
@@ -33,21 +39,50 @@ function stippleImage(img) {
       // Calculate dot radius based on brightness
       let radius = map(b, 0, 255, dotSize, 0);
       // Draw a dot
-      ellipse(x, y, radius);
+      // ellipse(x, y, radius);
+      ellipses.push({ x, y, radius });
     }
   }
 }
+const sketch = (props) => {
+  console.log(props);
+  const { context, width, height, units } = props;
 
-canvasSketch(() => {
-  // Inside this is a bit like p5.js 'setup' function
   img.loadPixels();
   img.resize(640, 640);
   img.updatePixels();
   img.filter(GRAY);
 
-  // Return a renderer to 'draw' the p5.js content
-  return () => {
-    // Draw with p5.js things
-    stippleImage(img);
-  };
-}, settings);
+  stippleImage(img);
+  console.log(ellipses);
+
+  // Holds all our 'path' objects
+  // which could be from createPath, or SVGPath string, or polylines
+  const paths = [];
+  // const p = createPath();
+
+  ellipses.forEach(({ x, y, radius }) => {
+    context.moveTo(x + radius, y);
+    const p = createPath((context) =>
+      context.arc(x, y, radius, 0, Math.PI * 2)
+    );
+    paths.push(p);
+  });
+
+  console.log({ paths });
+
+  return (props) => renderPaths(paths, props);
+
+  // return (props) =>
+  //   renderPaths(paths, {
+  //     ...props,
+  //     lineJoin: "round",
+  //     lineCap: "round",
+  //     // in working units; you might have a thicker pen
+  //     lineWidth: 0.08,
+  //     // Optimize SVG paths for pen plotter use
+  //     optimize: true,
+  //   });
+};
+
+canvasSketch(sketch, settings);
