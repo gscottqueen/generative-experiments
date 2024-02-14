@@ -1,9 +1,9 @@
 import canvasSketch from "canvas-sketch";
-const {
+import {
   renderPaths,
   createPath,
-  pathsToPolylines,
-} = require("canvas-sketch-util/penplot");
+  pathsToSVG,
+} from "canvas-sketch-util/penplot";
 import p5 from "p5";
 
 // Attach p5.js it to global scope
@@ -17,6 +17,7 @@ const settings = {
   p5: true,
   dimensions: [640, 640],
   scaleToView: true,
+  animate: true,
 };
 
 // Optionally preload before you load the sketch
@@ -46,7 +47,7 @@ function stippleImage(img) {
 }
 const sketch = (props) => {
   console.log(props);
-  const { context, width, height, units } = props;
+  const { context } = props;
 
   img.loadPixels();
   img.resize(640, 640);
@@ -63,26 +64,22 @@ const sketch = (props) => {
 
   ellipses.forEach(({ x, y, radius }) => {
     context.moveTo(x + radius, y);
+    context.fillStyle = "black";
     const p = createPath((context) =>
       context.arc(x, y, radius, 0, Math.PI * 2)
     );
+    context.fill();
     paths.push(p);
   });
 
   console.log({ paths });
-
-  return (props) => renderPaths(paths, props);
-
-  // return (props) =>
-  //   renderPaths(paths, {
-  //     ...props,
-  //     lineJoin: "round",
-  //     lineCap: "round",
-  //     // in working units; you might have a thicker pen
-  //     lineWidth: 0.08,
-  //     // Optimize SVG paths for pen plotter use
-  //     optimize: true,
-  //   });
+  // return (props) => renderPaths(paths, props);
+  return (props) =>
+    renderPaths(paths, {
+      ...props,
+      lineWidth: 0.8,
+      optimize: true,
+    });
 };
 
 canvasSketch(sketch, settings);
