@@ -1,6 +1,4 @@
 import canvasSketch from "canvas-sketch";
-import { renderPolylines } from "canvas-sketch-util/penplot";
-import { clipPolylinesToBox } from "canvas-sketch-util/geometry";
 import p5 from "p5";
 
 // Attach p5.js it to global scope
@@ -40,27 +38,6 @@ function stippleImage(img) {
     }
   }
 }
-
-// const vectorDots = () => {
-//   // Draw some circles expanding outward
-//   const steps = 5;
-//   const count = 20;
-//   const spacing = Math.min(width, height) * 0.05;
-//   const radius = Math.min(width, height) * 0.25;
-//   for (let j = 0; j < count; j++) {
-//     const r = radius + j * spacing;
-//     const circle = [];
-//     for (let i = 0; i < steps; i++) {
-//       const t = i / Math.max(1, steps - 1);
-//       const angle = Math.PI * 2 * t;
-//       circle.push([
-//         width / 2 + Math.cos(angle) * r,
-//         height / 2 + Math.sin(angle) * r,
-//       ]);
-//     }
-//     lines.push(circle);
-//   }
-// };
 
 canvasSketch(() => {
   // Inside this is a bit like p5.js 'setup' function
