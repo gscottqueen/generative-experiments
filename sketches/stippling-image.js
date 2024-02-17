@@ -40,7 +40,6 @@ function stippleImage(img) {
       // Calculate dot radius based on brightness
       let radius = map(b, 0, 255, dotSize, 0);
       // Draw a dot
-      // ellipse(x, y, radius);
       ellipses.push({ x, y, radius });
     }
   }
@@ -57,10 +56,8 @@ const sketch = (props) => {
   stippleImage(img);
   console.log(ellipses);
 
-  // Holds all our 'path' objects
-  // which could be from createPath, or SVGPath string, or polylines
+  // Holds all our 'path' as objects
   const paths = [];
-  // const p = createPath();
 
   ellipses.forEach(({ x, y, radius }) => {
     context.moveTo(x + radius, y);
@@ -73,11 +70,11 @@ const sketch = (props) => {
   });
 
   console.log({ paths });
-  // return (props) => renderPaths(paths, props);
+
   return (props) =>
     renderPaths(paths, {
       ...props,
-      lineWidth: 0.8,
+      lineWidth: 0.5,
       optimize: true,
     });
 };
